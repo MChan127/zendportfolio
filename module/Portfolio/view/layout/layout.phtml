@@ -1,0 +1,57 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="en">
+    <head>
+        <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+
+        <meta charset="utf-8">
+        <?php echo $this->headTitle("Matthew Chan - Web Portfolio")?>
+
+        <?php echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                        ->prependStylesheet($this->basePath('css/style.css'))
+                        ->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'))
+                        ->prependStylesheet($this->basePath('css/bootstrap.min.css')) ?>
+
+        <!-- Scripts -->
+        <?php echo $this->headScript()
+            ->prependFile($this->basePath('js/bootstrap.min.js'))
+            ->prependFile($this->basePath('js/jquery.min.js'))
+            ->prependFile($this->basePath('js/respond.min.js'), 'text/javascript', array('conditional' => 'lt IE 9',))
+            ->prependFile($this->basePath('js/html5shiv.js'),   'text/javascript', array('conditional' => 'lt IE 9',))
+        ; ?>
+    </head>
+    <body>
+        <header>
+            <div id="title">
+                <span id="titleText">Matthew Chan</span><br>
+                <span style="display: block; position: relative; top: -12px; left: 20px;
+                    letter-spacing: 2px; font-weight: 600;">
+                    Web Developer / Software Engineer
+                </span>
+            </div>
+
+            <!-- navigation bar -->
+            <div id="nav">
+                <ul>
+                    <a href="/"><li>Home</li></a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="/about"><li>About Me</li></a>
+                </ul>
+            </div>
+        </header>
+
+        <div id="content">
+            <?php echo $this->content; ?>
+        </div>
+
+        <footer>
+            <p>Footer Goes Here</p>
+        </footer>
+    </body>
+</html>
