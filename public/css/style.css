@@ -10,7 +10,7 @@ header {
 
     color: #fff;
 
-    background-color: #37448C;
+    background-color: #44264E;
     border-bottom: 1px solid #C0C0C0;
 }
 
@@ -52,17 +52,45 @@ header {
 
     padding: 5px 8px 5px 8px;
 
-    border: 1px solid #7686B5;
+    border: 1px solid #D894E1;
     border-radius: 5px;
 }
 
 #nav > ul > a > li:hover {
-    border-color: #B6BCCD;
-    background-color: #3F448A;
+    background-color: #7A3F98;
 }
 
 #content {
     padding: 20px;
+}
+
+#pagination {
+    list-style-image: none;
+    text-align: center;
+}
+
+#pagination > li {
+    list-style: none;
+    display: inline;
+    font-size: 60px;
+    font-weight: 600;
+}
+
+#pagination > li:first-child {
+    margin-right: 10%;
+}
+#pagination > li:last-child {
+    margin-left: 10%;
+}
+
+#pagination > li > a {
+    text-decoration: none;
+    color: #000;
+}
+
+#pagination > li > a:hover {
+    text-decoration: none;
+    color: #67A9D8;
 }
 
 footer {

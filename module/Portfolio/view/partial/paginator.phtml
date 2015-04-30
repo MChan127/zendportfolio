@@ -17,7 +17,7 @@
             grabbed directly from official Zend tutorial, 
             except for php logic pertaining to sorting
         -->
-         <ul class="pagination">
+         <ul id="pagination">
              <!-- Previous page link -->
              <?php if (isset($this->previous)): ?>
                  <li>
@@ -28,19 +28,19 @@
                             }
                         ?>
                      ">
-                         <<
+                         &#8678;
                      </a>
                  </li>
              <?php else: ?>
                  <li class="disabled">
                      <a href="#">
-                         <<
+                         &#8678;
                      </a>
                  </li>
              <?php endif; ?>
 
              <!-- Numbered page links -->
-             <?php foreach ($this->pagesInRange as $page): ?>
+             <!-- <?php foreach ($this->pagesInRange as $page): ?>
                  <?php if ($page != $this->current): ?>
                      <li>
                          <a href="<?php echo $this->url($this->route);?>?page=<?php 
@@ -59,6 +59,7 @@
                      </li>
                  <?php endif; ?>
              <?php endforeach; ?>
+             -->
 
              <!-- Next page link -->
              <?php if (isset($this->next)): ?>
@@ -70,13 +71,13 @@
                             }
                         ?>
                      ">
-                         >>
+                         &#8680; 
                      </a>
                  </li>
              <?php else: ?>
                  <li class="disabled">
                      <a href="#">
-                         >>
+                         &#8680; 
                      </a>
                  </li>
              <?php endif; ?>

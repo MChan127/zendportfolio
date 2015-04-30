@@ -14,12 +14,13 @@
 </p>
 
 <?php 
-
 // example of fetching db items
 foreach($gallery_items as $item) {
 	echo 'title: ' . $item->title . '<br>';
 }
+?>
 
+<?php
 /* grabbed directly from official Zend tutorial */
 // add at the end of the file after the table
 echo $this->paginationControl(
