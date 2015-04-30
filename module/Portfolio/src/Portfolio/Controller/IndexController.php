@@ -15,7 +15,18 @@ class IndexController extends AbstractActionController {
 	public function indexAction() {
 		$table = $this->getPortfolioTable();
 		$view = new ViewModel();
-	    $view->setVariables(array('gallery_items' => $table->fetchAll()));
+	    
+	    // fetch a paginated array of portfolio items
+	    $gallery_items = $table->fetchAll(true, $this->params()->fromQuery('sortby', null));
+		$gallery_items->setCurrentPageNumber((int)$this->params()->fromQuery('page', 1));
+    	$gallery_items->setItemCountPerPage(4);
+
+	    $view->setVariables(
+	    	array(
+	    		'gallery_items' => $gallery_items,
+	    		'current_page' => (int)$this->params()->fromQuery('page', 1)
+	    	)
+	    );
 	    return $view;
 	}
 

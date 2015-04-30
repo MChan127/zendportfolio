@@ -1,6 +1,38 @@
+<p> Sort by: &nbsp;
+	<a href="<?php echo $this->url($this->route);?>?page=<?php echo $current_page; ?>&sortby=alpha_asc">
+		Alphabet (ascending)
+	</a> &nbsp;|&nbsp;
+	<a href="<?php echo $this->url($this->route);?>?page=<?php echo $current_page; ?>&sortby=alpha_desc">
+		Alphabet (descending)
+	</a> &nbsp;|&nbsp;
+	<a href="<?php echo $this->url($this->route);?>?page=<?php echo $current_page; ?>&sortby=date_asc">
+		Date (ascending)
+	</a> &nbsp;|&nbsp;
+	<a href="<?php echo $this->url($this->route);?>?page=<?php echo $current_page; ?>&sortby=date_desc">
+		Date (descending)
+	</a>
+</p>
+
 <?php 
 
 // example of fetching db items
-/*foreach($gallery_items as $item) {
+foreach($gallery_items as $item) {
 	echo 'title: ' . $item->title . '<br>';
-}*/
+}
+
+/* grabbed directly from official Zend tutorial */
+// add at the end of the file after the table
+echo $this->paginationControl(
+    // the paginator object
+    $gallery_items,
+    // the scrolling style
+    'sliding',
+    // the partial to use to render the control
+    'partial/paginator.phtml',
+    // the route to link to when a user clicks a control link
+    array(
+        'route' => 'index'
+    )
+);
+?>
+

@@ -41,7 +41,8 @@ class Module
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $table = new SimpleTable($dbAdapter, 'portfolio_item', 'Portfolio\\Model\\PortfolioItem');
                     return $table;
-                }/*,
+                },
+                /*
                 'Portfolio\Model\TagTable' =>  function($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $table = new SimpleTable($dbAdapter, 'tags', 'Portfolio\\Model\\Tag');

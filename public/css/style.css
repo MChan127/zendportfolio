@@ -10,7 +10,7 @@ header {
 
     color: #fff;
 
-    background-color: #0D0039;
+    background-color: #37448C;
     border-bottom: 1px solid #C0C0C0;
 }
 
@@ -50,7 +50,7 @@ header {
     font-size: 18px;
     letter-spacing: 2px;
 
-    padding: 5px;
+    padding: 5px 8px 5px 8px;
 
     border: 1px solid #7686B5;
     border-radius: 5px;

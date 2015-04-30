@@ -1,0 +1,85 @@
+<?php if ($this->pageCount): ?>
+     <div>
+        <?php
+            // get the sorting method from the url (so that this partial can maintain it)
+            $regex = '/^.+\&sortby=([A-Za-z_]+)$/';
+            preg_match($regex, $_SERVER["QUERY_STRING"], $matches);
+            // if there is a sorting method specified, assign it to $sortby
+            // otherwise there is no sort
+            if (count($matches) == 2) {
+                $sortby = $matches[1];
+            } else {
+                $sortby = null;
+            }
+        ?>
+
+        <!-- 
+            grabbed directly from official Zend tutorial, 
+            except for php logic pertaining to sorting
+        -->
+         <ul class="pagination">
+             <!-- Previous page link -->
+             <?php if (isset($this->previous)): ?>
+                 <li>
+                     <a href="<?php echo $this->url($this->route); ?>?page=<?php 
+                            echo $this->previous;
+                            if ($sortby) {
+                                echo '&' . 'sortby=' . $sortby;
+                            }
+                        ?>
+                     ">
+                         <<
+                     </a>
+                 </li>
+             <?php else: ?>
+                 <li class="disabled">
+                     <a href="#">
+                         <<
+                     </a>
+                 </li>
+             <?php endif; ?>
+
+             <!-- Numbered page links -->
+             <?php foreach ($this->pagesInRange as $page): ?>
+                 <?php if ($page != $this->current): ?>
+                     <li>
+                         <a href="<?php echo $this->url($this->route);?>?page=<?php 
+                                echo $page;
+                                if ($sortby) {
+                                    echo '&' . 'sortby=' . $sortby;
+                                }
+                            ?>
+                         ">
+                             <?php echo $page; ?>
+                         </a>
+                     </li>
+                 <?php else: ?>
+                     <li class="active">
+                         <a href="#"><?php echo $page; ?></a>
+                     </li>
+                 <?php endif; ?>
+             <?php endforeach; ?>
+
+             <!-- Next page link -->
+             <?php if (isset($this->next)): ?>
+                 <li>
+                     <a href="<?php echo $this->url($this->route); ?>?page=<?php 
+                            echo $this->next;
+                            if ($sortby) {
+                                echo '&' . 'sortby=' . $sortby;
+                            }
+                        ?>
+                     ">
+                         >>
+                     </a>
+                 </li>
+             <?php else: ?>
+                 <li class="disabled">
+                     <a href="#">
+                         >>
+                     </a>
+                 </li>
+             <?php endif; ?>
+         </ul>
+     </div>
+ <?php endif; ?>
