@@ -98,10 +98,4 @@ class IndexController extends AbstractActionController {
 	    );
 	    return $view;
 	}
-
-	public function aboutAction() {
-	}
-
-	public function resumeAction() {
-	}
 }
