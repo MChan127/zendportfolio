@@ -1,4 +1,12 @@
-<p> Sort by: &nbsp;
+<!--
+Working examples of accessing both /public and /data directories:
+<img src="/img/zf2-logo.png"><br>
+<img src="/tmp/images/anispace.png"><br>
+-->
+
+<!-- sort method options -->
+<p id="sorts"> 
+	Sort by: &nbsp;
 	<a href="<?php echo $this->url($this->route);?>?page=<?php echo $current_page; ?>&sortby=alpha_asc">
 		Alphabet (ascending)
 	</a> &nbsp;|&nbsp;
@@ -13,13 +21,7 @@
 	</a>
 </p>
 
-<?php 
-// example of fetching db items
-foreach($gallery_items as $item) {
-	echo 'title: ' . $item->title . '<br>';
-}
-?>
-
+<!-- pagination controls -->
 <?php
 /* grabbed directly from official Zend tutorial */
 // add at the end of the file after the table
@@ -37,3 +39,40 @@ echo $this->paginationControl(
 );
 ?>
 
+<!-- main project thumbnail display -->
+<div class="row">
+<div class="col-xs-10 col-xs-offset-1" id="portfolioDisplay">
+	<?php 
+	// example of fetching db items
+	foreach($gallery_items as $item) {
+	?>
+
+	<a class="itemLink" href="/view/<?php echo $item->id; ?>">
+	<div class="itemThumbnail" style="background-image: url('<?php
+		// if portfolio item doesn't have an image (filename), just render
+		// the blank image
+		$img_filename = ($item->img_filename == null) ? 'none.jpg' : $item->img_filename;
+
+		echo "/tmp/images/" . $img_filename;
+	?>'">
+		
+		<!-- 
+			invisible until user hovers over the thumbnail.
+			only background is filtered by opacity.
+		-->
+		<div class="thumbContent">
+			<p class="thumbOverlay">
+			</p>
+			<p class="thumbText">
+				<?php echo $item->title ?>
+			</p>
+		</div>
+
+	</div>
+	</a>
+
+	<?php 
+	} 
+	?>
+</div>
+</div>
