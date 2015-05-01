@@ -1,0 +1,25 @@
+<p style="font-family: Raleway, serif; font-size: 24px; font-weight: 900; letter-spacing: 3px;">
+	<a href="/">< Back</a>
+</p>
+
+<div class="itemDesc">
+	<?php
+	$img_filename = ($item->img_filename == null) ? 'none.jpg' : $item->img_filename;
+	?>
+	<div class="crop">
+	<a href="/sym/images/<?php echo $img_filename; ?>"><img src="/sym/images/<?php echo $img_filename; ?>"></a>
+	</div>
+
+	<p style="font-family: Raleway, serif; font-size: 36px; font-weight: 900; letter-spacing: 3px;
+		border-bottom: 1px solid #fff; width: 600px;">
+		<?php echo $item->title ?>
+	</p>
+
+	<p>
+		<span style="letter-spacing: 1px;">Started:</span> <?php echo $item->start ?><br>
+		<span style="letter-spacing: 1px;">Ended:</span> <?php echo $item->end ?><br>
+		<span style="letter-spacing: 1px;">Link:</span> <?php echo $item->link ?>
+	</p>
+
+	<p><?php echo $item->description ?></p>
+</div>

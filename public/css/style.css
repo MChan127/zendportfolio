@@ -1,19 +1,18 @@
 body {
-    font-family: Calibri;
-    font-size: 15px;
+    font-family: Calibri, serif;
+    font-size: 16px;
     background-image: url('../img/background.jpg');
-    background-size: 1500px auto;
     color: #fff;
 }
 
 a {
-    color: #FFE1FD;
+    color: #8EFF8E;
 }
 a:visited {
-    color: #A9FFBC;
+    color: #8EFF8E;
 }
 a:hover {
-    color: #FF9CD2;
+    color: #CDFFC7;
     text-decoration: none;
 }
 
@@ -24,7 +23,7 @@ header {
 
     color: #fff;
 
-    background-color: #225274;
+    background-color: #23345B;
 }
 
 #title {
@@ -91,18 +90,18 @@ header {
 .itemThumbnail {
     position: relative;
     float: left;
-    width: 280px;
-    height: 230px;
+    width: 360px;
+    height: 250px;
     background-position: top left;
     background-size: auto 300px;
     background-repeat: no-repeat;
 }
 
-.itemLink:nth-child(3) {
+.itemLink:nth-child(2) {
     margin-right: 50px;
 }
 
-.itemLink:nth-child(4) {
+.itemLink:nth-child(3) {
     margin-left: 50px;
 }
 
@@ -170,6 +169,32 @@ header {
     opacity: 1;
 }
 
-#pagination > li > a:hover {
+#pagination > li:not(.disabled) > a:hover {
     opacity: 0.8;
+}
+
+.disabled {
+    opacity: 0.5;
+}
+
+.disabled:hover {
+    opacity: 0.5;
+}
+
+.itemDesc {
+    position: relative;
+    top: 10px;
+}
+
+.crop {
+    float: right;
+    width: 550px;
+    height: 350px;
+    overflow: hidden;
+    margin-right: 75px;
+}
+
+.crop img {
+    width: 800px;
+    height: auto;
 }

@@ -22,7 +22,7 @@ class IndexController extends AbstractActionController {
 	    // fetch a paginated array of portfolio items
 	    $gallery_items = $table->fetchAll(true, $this->params()->fromQuery('sortby', null));
 		$gallery_items->setCurrentPageNumber((int)$this->params()->fromQuery('page', 1));
-    	$gallery_items->setItemCountPerPage(6);
+    	$gallery_items->setItemCountPerPage(4);
 
     	$view = new ViewModel();
 	    $view->setVariables(
@@ -46,7 +46,7 @@ class IndexController extends AbstractActionController {
 		$view = new ViewModel();
 	    $view->setVariables(
 	    	array(
-	    		'gallery_item' => $gallery_item
+	    		'item' => $gallery_item
 	    	)
 	    );
 	    return $view;
