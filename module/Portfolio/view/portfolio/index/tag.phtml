@@ -1,0 +1,39 @@
+<p style="font-family: Raleway, serif; font-size: 24px; font-weight: 900; letter-spacing: 3px;">
+	<a href="/">< Back</a>
+</p>
+
+<div class="row">
+<div class="portfolioList col-xs-10 col-xs-offset-1">
+	<?php 
+	foreach($gallery_items as $item) {
+	?>
+
+	<a href="/view/<?php echo $item->id; ?>">
+	<div class="itemThumbnail" style="background-image: url('<?php
+		// if portfolio item doesn't have an image (filename), just render
+		// the blank image
+		$img_filename = ($item->img_filename == null) ? 'none.jpg' : $item->img_filename;
+
+		echo "/sym/images/" . $img_filename;
+	?>'">
+		
+		<!-- 
+			invisible until user hovers over the thumbnail.
+			only background is filtered by opacity.
+		-->
+		<div class="thumbContent">
+			<p class="thumbOverlay">
+			</p>
+			<p class="thumbText">
+				<?php echo $item->title ?>
+			</p>
+		</div>
+
+	</div>
+	</a>
+
+	<?php
+	}
+	?>
+</div>
+</div>

@@ -87,6 +87,12 @@ header {
     flex-wrap: wrap;
 }
 
+.portfolioList {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
 .itemThumbnail {
     position: relative;
     float: left;

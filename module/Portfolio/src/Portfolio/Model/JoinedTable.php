@@ -61,15 +61,16 @@ class JoinedTable extends AbstractTableGateway {
 	}
 
 	// get all items for this tag
-	public function fetchItemsForTags($id) {
-         $this->table = 'item_tags';
+	public function fetchItemsForTag($id) {
+        $this->table = 'item_tags';
 
 		$select = new Select();
-		$select->join(array('p' => 'portfolio_item'), 'item_tags.item_id = p.id', 'p.id', 'p.title',
-			'p.start', 'p.end', 'p.link', 'p.description', 'p.img_filename');
-        $select->where('item_tags.tag_id = ?', $id);
+		$select->from($this->table, array());
+		$select->join(array('p' => 'portfolio_item'), 'item_tags.item_id = p.id', array('id', 'title',
+			'start', 'end', 'link', 'description', 'img_filename'));
+        $select->where(array('item_tags.tag_id' => $id));
 
-        $resultSet = $this->select($select);
+        $resultSet = $this->selectWith($select);
 
         $objSet = array();
 

@@ -63,6 +63,21 @@ class IndexController extends AbstractActionController {
 	}
 
 	public function tagAction() {
+		// user is viewing a list of all portfolio items that have this tag
+		$id = $this->params()->fromRoute('id', 0);
+
+		$table = $this->getTagTable();
+
+		// fetch all items with this tag id
+		$gallery_items = $table->fetchItemsForTag($id);
+
+		$view = new ViewModel();
+	    $view->setVariables(
+	    	array(
+	    		'gallery_items' => $gallery_items
+	    	)
+	    );
+	    return $view;
 	}
 
 	public function aboutAction() {
