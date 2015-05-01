@@ -11,9 +11,15 @@ if ($_SERVER['APPLICATION_ENV'] == 'development') {
  * This makes our life easier when dealing with paths. Everything is relative
  * to the application root now.
  */
+// **modify this so that this public directory always knows where the application is**
 chdir(dirname(__DIR__));
+//echo 'application path: ' . dirname(__DIR__) . '<br>';
+
 //define('BASE_PATH', realpath(dirname(__DIR__)));
 //define('PUBLIC_PATH', BASE_PATH.'/public');
+
+//defined('APPLICATION_PATH')
+//    || define('APPLICATION_PATH', '/home/vol10_8/byethost10.com/b10_16159126/public_html/'));
 
 // Decline static file requests back to the PHP built-in webserver
 if (php_sapi_name() === 'cli-server' && is_file(__DIR__ . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH))) {

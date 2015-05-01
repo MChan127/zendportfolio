@@ -12,7 +12,7 @@
  */
 
 return array(
-   'db' => array(
+    'db' => array(
         'driver'         => 'Pdo',
         'dsn'            => 'mysql:dbname=portfolio;host=localhost',
         'driver_options' => array(
