@@ -35,7 +35,7 @@ class PortfolioItem {
 					$value = $this->parseDate($value);
 				}
 
-				$this->$key = (!empty($data[$key])) ? $value : null;
+				$this->$key = (!empty($data[$key]) || $key == 'end') ? $value : null;
 			}
 		}
 	}
@@ -43,8 +43,8 @@ class PortfolioItem {
 	// parse date types to a more appropriate string
 	private function parseDate($date) {
 		// if blank, means this is an 'ongoing' end date
-		if (!$date) {
-			return 'Present';
+		if ($date == null) {
+			return 'n/a (Present)';
 		}
 
 		$parsed_date = date_parse($date);
