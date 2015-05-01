@@ -100,7 +100,7 @@ header {
     width: 360px;
     height: 250px;
     background-position: top left;
-    background-size: auto 300px;
+    background-size: auto 400px;
     background-repeat: no-repeat;
 }
 
@@ -211,9 +211,10 @@ header {
 
 .tags {
     position: relative;
-    top: 45px;
+    top: 25px;
     left: 15px;
     clear: both;
+
 }
 
 .tag {
