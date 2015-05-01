@@ -23,7 +23,7 @@ header {
 
     color: #fff;
 
-    background-color: #23345B;
+    background-color: #4C147C;
 }
 
 #title {
@@ -197,4 +197,25 @@ header {
 .crop img {
     width: 800px;
     height: auto;
+}
+
+.tags {
+    position: relative;
+    top: 45px;
+    left: 15px;
+    clear: both;
+}
+
+.tag {
+    float: left;
+    padding: 3px 8px 3px 8px; 
+    border-radius: 10px;
+    background-color: #989898;
+    color: #fff;
+    font-weight: 600;
+    margin-right: 15px;
+}
+
+.tag:hover {
+    background-color: #C1C1C1;
 }

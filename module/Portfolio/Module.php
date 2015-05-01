@@ -5,6 +5,7 @@ use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 
 use Portfolio\Model\SimpleTable;
+use Portfolio\Model\JoinedTable;
 
 class Module
 {
@@ -42,12 +43,11 @@ class Module
                     $table = new SimpleTable($dbAdapter, 'portfolio_item', 'Portfolio\\Model\\PortfolioItem');
                     return $table;
                 },
-                /*
                 'Portfolio\Model\TagTable' =>  function($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                    $table = new SimpleTable($dbAdapter, 'tags', 'Portfolio\\Model\\Tag');
+                    $table = new JoinedTable($dbAdapter);
                     return $table;
-                }*/
+                }
             ),
         );
     }

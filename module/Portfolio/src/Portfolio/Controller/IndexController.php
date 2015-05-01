@@ -11,6 +11,11 @@ class IndexController extends AbstractActionController {
 		$sm = $this->getServiceLocator();
 		return $sm->get('Portfolio\Model\PortfolioTable');
 	}
+	// get item tags table (in which portfolio items are linked to their tags)
+	public function getTagTable() {
+		$sm = $this->getServiceLocator();
+		return $sm->get('Portfolio\Model\TagTable');
+	}
 
 	public function indexAction() {
 		//echo (int)file_exists("data/images/anispace.png") . '<br>';
@@ -38,15 +43,20 @@ class IndexController extends AbstractActionController {
 		// user has decided to view this item with this id
 		$id = $this->params()->fromRoute('id', 0);
 
-		$table = $this->getPortfolioTable();
+		$item_table = $this->getPortfolioTable();
+		$tag_table = $this->getTagTable();
 
 		// fetch this one row from the database with this id
-		$gallery_item = $table->fetchOne($id);
+		$gallery_item = $item_table->fetchOne($id);
+
+		// also fetch all the tags for this item
+		$item_tags = $tag_table->fetchTagsForItem($id);
 
 		$view = new ViewModel();
 	    $view->setVariables(
 	    	array(
-	    		'item' => $gallery_item
+	    		'item' => $gallery_item,
+	    		'tags' => $item_tags
 	    	)
 	    );
 	    return $view;
@@ -56,5 +66,8 @@ class IndexController extends AbstractActionController {
 	}
 
 	public function aboutAction() {
+	}
+
+	public function resumeAction() {
 	}
 }
