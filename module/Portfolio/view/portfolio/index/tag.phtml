@@ -1,6 +1,11 @@
-<p style="font-family: Raleway, serif; font-size: 24px; font-weight: 900; letter-spacing: 3px;">
-	<a href="/">< Back</a>
+<p class="backLink">
+	<a href="<?php echo $previous_route; ?>">< Previous Page</a>
 </p>
+
+<p><div style="float: left;">Displaying all projects that contain the tag &nbsp;</div> 
+	<div class="tag" style="margin-right: 0; position: relative; bottom: 5px;"><?php echo $tag_name; ?></div>&nbsp;:	</p>
+
+<div style="height: 10px;"></div>
 
 <div class="row">
 <div class="portfolioList col-xs-10 col-xs-offset-1">

@@ -3,6 +3,7 @@ body {
     font-size: 16px;
     background-image: url('../img/background.jpg');
     color: #fff;
+    letter-spacing: 0.3px;
 }
 
 a {
@@ -205,6 +206,9 @@ header {
     height: auto;
 }
 
+.backLink {
+}
+
 .tags {
     position: relative;
     top: 45px;
@@ -216,12 +220,12 @@ header {
     float: left;
     padding: 3px 8px 3px 8px; 
     border-radius: 10px;
-    background-color: #989898;
+    background-color: #4B4B4B;
     color: #fff;
     font-weight: 600;
     margin-right: 15px;
 }
 
 .tag:hover {
-    background-color: #C1C1C1;
+    background-color: #7C7C7C;
 }

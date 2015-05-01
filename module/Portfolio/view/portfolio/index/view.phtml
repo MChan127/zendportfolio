@@ -1,5 +1,5 @@
-<p style="font-family: Raleway, serif; font-size: 24px; font-weight: 900; letter-spacing: 3px;">
-	<a href="/">< Back</a>
+<p class="backLink">
+	<a href="/">< Back to Home</a>
 </p>
 
 <div class="itemDesc">
@@ -33,9 +33,26 @@
 		foreach($tags as $tag) {
 	?>
 		<a href="/tag/<?php echo $tag->id; ?>">
+		<!--<a style="cursor: pointer;"
+			class="tagLink" data-tagid="<?php echo $tag->id; ?>" data-tagname="<?php echo $tag->name; ?>">-->
 			<div class="tag"><?php echo $tag->name; ?></div>
 		</a>
 	<?php
 		}
 	?>
 </div>
+
+<!--<script>
+	$(document).ready(function() {
+		$(".tagLink").click(function() {
+			console.log("clicked");
+
+			var id = $(this).data('tagid');
+			var name = $(this).data('tagname');
+
+			$.post("/tag", {'id': id, 'name': name, 'currentPage': '<?php echo $_SERVER["REQUEST_URI"];?>'}, function(data, status) {
+				console.log("success! Data: " + data);
+			});
+		});
+	});
+</script>-->

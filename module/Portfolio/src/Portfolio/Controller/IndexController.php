@@ -12,6 +12,11 @@ class IndexController extends AbstractActionController {
 		return $sm->get('Portfolio\Model\PortfolioTable');
 	}
 	// get item tags table (in which portfolio items are linked to their tags)
+	public function getItemTagTable() {
+		$sm = $this->getServiceLocator();
+		return $sm->get('Portfolio\Model\ItemTagTable');
+	}
+	// get tags table (involves only tags, not items)
 	public function getTagTable() {
 		$sm = $this->getServiceLocator();
 		return $sm->get('Portfolio\Model\TagTable');
@@ -44,13 +49,13 @@ class IndexController extends AbstractActionController {
 		$id = $this->params()->fromRoute('id', 0);
 
 		$item_table = $this->getPortfolioTable();
-		$tag_table = $this->getTagTable();
+		$item_tag_table = $this->getItemTagTable();
 
 		// fetch this one row from the database with this id
 		$gallery_item = $item_table->fetchOne($id);
 
 		// also fetch all the tags for this item
-		$item_tags = $tag_table->fetchTagsForItem($id);
+		$item_tags = $item_tag_table->fetchTagsForItem($id);
 
 		$view = new ViewModel();
 	    $view->setVariables(
@@ -62,19 +67,33 @@ class IndexController extends AbstractActionController {
 	    return $view;
 	}
 
+	// user is viewing a list of all portfolio items that have a particular tag
 	public function tagAction() {
-		// user is viewing a list of all portfolio items that have this tag
+		$fullPrevRoute = $this->getRequest()->getServer('HTTP_REFERER');
+		$prevRoute = str_replace("http://portfolio-zend.com", "", $fullPrevRoute);
+
+		// if not from another route in this application
+		if (!$prevRoute) {
+			$fullPrevRoute = null;
+			$prevRoute = '/';
+		}
+
 		$id = $this->params()->fromRoute('id', 0);
 
-		$table = $this->getTagTable();
+		$item_tag_table = $this->getItemTagTable();
+		$tag_table = $this->getTagTable();
 
 		// fetch all items with this tag id
-		$gallery_items = $table->fetchItemsForTag($id);
+		$gallery_items = $item_tag_table->fetchItemsForTag($id);
+		// fetch the tag name belonging to this id (so we may display it on the page)
+		$tag_name = $tag_table->fetchOne($id)->name;
 
 		$view = new ViewModel();
 	    $view->setVariables(
 	    	array(
-	    		'gallery_items' => $gallery_items
+	    		'gallery_items' => $gallery_items,
+	    		'tag_name' => $tag_name,
+	    		'previous_route' => $prevRoute
 	    	)
 	    );
 	    return $view;
