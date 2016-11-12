@@ -13,7 +13,7 @@
 	foreach($gallery_items as $item) {
 	?>
 
-	<a href="/view/<?php echo $item->id; ?>">
+	<a href="/<?php echo $item->url_key; ?>">
 	<div class="itemThumbnail" style="background-image: url('<?php
 		// if portfolio item doesn't have an image (filename), just render
 		// the blank image

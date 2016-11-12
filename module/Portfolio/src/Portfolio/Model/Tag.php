@@ -3,9 +3,6 @@
 namespace Portfolio\Model;
 
 class Tag {
-	public $id;
-	public $name;
-
 	public function __construct($data = null) {
 		if ($data) {
 			foreach ($data as $key => $value) {

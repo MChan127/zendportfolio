@@ -115,4 +115,17 @@ class SimpleTable extends AbstractTableGateway {
 
 		return new $this->objname($row);
 	}
+
+	// find an item with the url key
+	public function fetchItemForUrlKey($key) {
+		$resultSet = $this->select(array('url_key' => $key));
+		$row = $resultSet->current();
+		
+		// if the table entry isn't found, throw an exception
+		if (empty($row)) {
+			return false;
+		}
+
+		return new $this->objname($row);
+	}
 }

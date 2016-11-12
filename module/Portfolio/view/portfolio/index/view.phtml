@@ -7,7 +7,7 @@
 	$img_filename = ($item->img_filename == null) ? 'none.jpg' : $item->img_filename;
 	?>
 	<div class="crop">
-	<a href="/sym/images/<?php echo $img_filename; ?>"><img src="/sym/images/<?php echo $img_filename; ?>"></a>
+		<a href="/sym/images/<?php echo $img_filename; ?>"><img src="/sym/images/<?php echo $img_filename; ?>"></a>
 	</div>
 
 	<p style="font-family: Raleway, serif; font-size: 36px; font-weight: 900; letter-spacing: 3px;
@@ -18,11 +18,12 @@
 	<p>
 		<span style="letter-spacing: 1px;">Started:</span> <?php echo $item->start ?><br>
 		<span style="letter-spacing: 1px;">Ended:</span> <?php echo $item->end ?><br>
+		<span style="letter-spacing: 1px;">Last Updated:</span> <?php echo $item->updated ?><br>
 		<span style="letter-spacing: 1px;">Link:</span> <?php echo $item->link ?><br>
 		<span style="letter-spacing: 1px;">Source:</span> <?php echo $item->source ?>
 	</p>
 
-	<p><?php echo $item->description ?></p>
+	<p style="margin-top: 35px;"><?php echo $item->description ?></p>
 </div>
 
 <div class="tags">
@@ -34,8 +35,8 @@
 		foreach($tags as $tag) {
 	?>
 		<a href="/tag/<?php echo $tag->id; ?>">
-		<!--<a style="cursor: pointer;"
-			class="tagLink" data-tagid="<?php echo $tag->id; ?>" data-tagname="<?php echo $tag->name; ?>">-->
+		<!--<?php /* <a style="cursor: pointer;"
+			class="tagLink" data-tagid="<?php echo $tag->id; ?>" data-tagname="<?php echo $tag->name; ?>"> */ ?>-->
 			<div class="tag"><?php echo $tag->name; ?></div>
 		</a>
 	<?php
@@ -51,7 +52,7 @@
 			var id = $(this).data('tagid');
 			var name = $(this).data('tagname');
 
-			$.post("/tag", {'id': id, 'name': name, 'currentPage': '<?php echo $_SERVER["REQUEST_URI"];?>'}, function(data, status) {
+			$.post("/tag", {'id': id, 'name': name, 'currentPage': '<?php //echo $_SERVER["REQUEST_URI"];?>'}, function(data, status) {
 				console.log("success! Data: " + data);
 			});
 		});

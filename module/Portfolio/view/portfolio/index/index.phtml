@@ -47,7 +47,7 @@ echo $this->paginationControl(
 	foreach($gallery_items as $item) {
 	?>
 
-	<a class="itemLink" href="/view/<?php echo $item->id; ?>">
+	<a class="itemLink" href="/<?php echo $item->url_key; ?>">
 	<div class="itemThumbnail" style="background-image: url('<?php
 		// if portfolio item doesn't have an image (filename), just render
 		// the blank image
