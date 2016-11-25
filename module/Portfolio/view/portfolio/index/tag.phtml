@@ -8,12 +8,12 @@
 <div style="height: 10px;"></div>
 
 <div class="row">
-<div class="portfolioList col-xs-10 col-xs-offset-1">
+<div class="col-xs-10 col-xs-offset-1" id="portfolioDisplay">
 	<?php 
 	foreach($gallery_items as $item) {
 	?>
 
-	<a href="/<?php echo $item->url_key; ?>">
+	<a class="itemLink" href="/<?php echo $item->url_key; ?>">
 	<div class="itemThumbnail" style="background-image: url('<?php
 		// if portfolio item doesn't have an image (filename), just render
 		// the blank image

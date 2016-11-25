@@ -67,7 +67,7 @@ class JoinedTable extends AbstractTableGateway {
 		$select = new Select();
 		$select->from($this->table, array());
 		$select->join(array('p' => 'portfolio_item'), 'item_tags.item_id = p.id', array('id', 'title',
-			'start', 'end', 'link', 'description', 'img_filename'));
+			'start', 'end', 'link', 'description', 'img_filename', 'url_key'));
         $select->where(array('item_tags.tag_id' => $id));
 
         $resultSet = $this->selectWith($select);

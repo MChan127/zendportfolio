@@ -19,8 +19,22 @@
 		<span style="letter-spacing: 1px;">Started:</span> <?php echo $item->start ?><br>
 		<span style="letter-spacing: 1px;">Ended:</span> <?php echo $item->end ?><br>
 		<span style="letter-spacing: 1px;">Last Updated:</span> <?php echo $item->updated ?><br>
-		<span style="letter-spacing: 1px;">Link:</span> <?php echo $item->link ?><br>
-		<span style="letter-spacing: 1px;">Source:</span> <?php echo $item->source ?>
+		<span style="letter-spacing: 1px;">Link:</span> <?php 
+			$project_link = $item->link;
+			if (filter_var($project_link, FILTER_VALIDATE_URL) !== false) {
+				echo '<a href="' . $project_link . '" target="_blank">' . $project_link . '</a>';
+			} else {
+				echo $project_link;
+			}
+		?><br>
+		<span style="letter-spacing: 1px;">Source:</span> <?php 
+			$source_link = $item->source;
+			if (filter_var($source_link, FILTER_VALIDATE_URL) !== false) {
+				echo '<a href="' . $source_link . '" target="_blank">' . $source_link . '</a>';
+			} else {
+				echo $source_link;
+			}
+		?>
 	</p>
 
 	<p style="margin-top: 35px;"><?php echo $item->description ?></p>
