@@ -17,7 +17,9 @@
             grabbed directly from official Zend tutorial, 
             except for php logic pertaining to sorting
         -->
-         <ul id="pagination">
+         <ul id="pagination" <?php if (!isset($this->previous) && !isset($this->next)) {
+            echo 'style="margin-bottom: 0;"';
+        } ?>>
              <!-- Previous page link -->
              <?php if (isset($this->previous)): ?>
                  <li>
@@ -27,19 +29,19 @@
                                 echo '&' . 'sortby=' . $sortby;
                             }
                         ?>
-                     ">
-                         &#8678;
+                     " alt="Previous Page" title="Previous Page">
+                         <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> 
                      </a>
                  </li>
              <?php else: ?>
-                 <li class="disabled">
+                 <?php /* <li class="disabled">
                      <a href="#">
                          &#8678;
                      </a>
-                 </li>
+                 </li> */ ?>
              <?php endif; ?>
 
-             <!-- Numbered page links -->
+             <?php /* <!-- Numbered page links -->
              <!-- <?php foreach ($this->pagesInRange as $page): ?>
                  <?php if ($page != $this->current): ?>
                      <li>
@@ -59,7 +61,7 @@
                      </li>
                  <?php endif; ?>
              <?php endforeach; ?>
-             -->
+             --> */ ?>
 
              <!-- Next page link -->
              <?php if (isset($this->next)): ?>
@@ -70,16 +72,16 @@
                                 echo '&' . 'sortby=' . $sortby;
                             }
                         ?>
-                     ">
-                         &#8680; 
+                     " alt="Next Page" title="Next Page">
+                         <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> 
                      </a>
                  </li>
              <?php else: ?>
-                 <li class="disabled">
+                 <?php /* <li class="disabled">
                      <a href="#">
                          &#8680; 
                      </a>
-                 </li>
+                 </li> */ ?>
              <?php endif; ?>
          </ul>
      </div>

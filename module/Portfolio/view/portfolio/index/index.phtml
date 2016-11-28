@@ -1,22 +1,20 @@
-<!--
-Working examples of accessing both /public and /data directories:
-<img src="/img/zf2-logo.png"><br>
-<img src="/tmp/images/anispace.png"><br>
--->
+<?php if (isset($action) && $action != ''): ?>
+<h1 style="font-size: 32px; margin: 8px 0 23px 0; text-align: center; font-family: 'Raleway', serif;"><?php echo $action === "personal" ? "Personal Projects" : "Work History"; ?></h1>
+<?php endif; ?>
 
 <!-- sort method options -->
 <p id="sorts"> 
 	Sort by: &nbsp;
-	<a href="<?php echo $this->url($this->route);?>?page=<?php echo $current_page; ?>&sortby=alpha_asc">
+	<a href="<?php echo $action; ?>?page=<?php echo $current_page; ?>&sortby=alpha_asc">
 		Alphabet (ascending)
 	</a> &nbsp;|&nbsp;
-	<a href="<?php echo $this->url($this->route);?>?page=<?php echo $current_page; ?>&sortby=alpha_desc">
+	<a href="<?php echo $action; ?>?page=<?php echo $current_page; ?>&sortby=alpha_desc">
 		Alphabet (descending)
 	</a> &nbsp;|&nbsp;
-	<a href="<?php echo $this->url($this->route);?>?page=<?php echo $current_page; ?>&sortby=date_asc">
+	<a href="<?php echo $action; ?>?page=<?php echo $current_page; ?>&sortby=date_asc">
 		Date (ascending)
 	</a> &nbsp;|&nbsp;
-	<a href="<?php echo $this->url($this->route);?>?page=<?php echo $current_page; ?>&sortby=date_desc">
+	<a href="<?php echo $action; ?>?page=<?php echo $current_page; ?>&sortby=date_desc">
 		Date (descending)
 	</a>
 </p>
@@ -48,13 +46,20 @@ echo $this->paginationControl(
 	?>
 
 	<a class="itemLink" href="/<?php echo $item->url_key; ?>">
-	<div class="itemThumbnail" style="background-image: url('<?php
+	<?php
 		// if portfolio item doesn't have an image (filename), just render
 		// the blank image
-		$img_filename = ($item->img_filename == null) ? 'none.jpg' : $item->img_filename;
+		$empty_img = false;
+		if ($item->img_filename === null) {
+			$img_filename = 'placeholder.png';
+			$empty_img = true;
+		} else {
+			$img_filename = $item->img_filename;
+		}
 
-		echo "/sym/images/" . $img_filename;
-	?>');">
+		$img_filename = "/sym/images/" . $img_filename;
+	?>
+	<div class="itemThumbnail <?php if ($empty_img) { echo 'empty-img'; } ?>" style="background-image: url('<?php echo $img_filename; ?>');">
 		
 		<!-- 
 			invisible until user hovers over the thumbnail.
@@ -64,8 +69,16 @@ echo $this->paginationControl(
 			<p class="thumbOverlay">
 			</p>
 			<p class="thumbText">
-				<?php echo $item->title ?>
+				<?php echo $item->title ?><br/>
+
+				<span style="font-size: 14px; font-style: italic;"><?php echo $item->getPortfolioTypeName($item->portfolio_type); ?></span>
 			</p>
+		</div>
+
+		<div class="touchScreenDesc">
+			<?php echo $item->title ?><br/>
+
+			<span style="font-size: 14px; font-style: italic;"><?php echo $item->getPortfolioTypeName($item->portfolio_type); ?></span>
 		</div>
 
 	</div>

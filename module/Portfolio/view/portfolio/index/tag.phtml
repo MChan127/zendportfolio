@@ -14,13 +14,20 @@
 	?>
 
 	<a class="itemLink" href="/<?php echo $item->url_key; ?>">
-	<div class="itemThumbnail" style="background-image: url('<?php
+	<?php
 		// if portfolio item doesn't have an image (filename), just render
 		// the blank image
-		$img_filename = ($item->img_filename == null) ? 'none.jpg' : $item->img_filename;
+		$empty_img = false;
+		if ($item->img_filename === null) {
+			$img_filename = 'placeholder.png';
+			$empty_img = true;
+		} else {
+			$img_filename = $item->img_filename;
+		}
 
-		echo "/sym/images/" . $img_filename;
-	?>');">
+		$img_filename = "/sym/images/" . $img_filename;
+	?>
+	<div class="itemThumbnail <?php if ($empty_img) { echo 'empty-img'; } ?>" style="background-image: url('<?php echo $img_filename; ?>');">
 		
 		<!-- 
 			invisible until user hovers over the thumbnail.
@@ -30,7 +37,8 @@
 			<p class="thumbOverlay">
 			</p>
 			<p class="thumbText">
-				<?php echo $item->title ?>
+				<?php echo $item->title ?><br/>
+				<span style="font-size: 14px; font-style: italic;"><?php echo $item->portfolio_type; ?></span>
 			</p>
 		</div>
 

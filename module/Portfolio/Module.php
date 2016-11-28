@@ -73,6 +73,11 @@ class Module implements InitProviderInterface
                     $table = new SimpleTable($dbAdapter, 'portfolio_item', 'Portfolio\\Model\\PortfolioItem');
                     return $table;
                 },
+                'Portfolio\Model\PortfolioTypeTable' =>  function($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $table = new JoinedTable($dbAdapter);
+                    return $table;
+                },
                 'Portfolio\Model\ItemTagTable' =>  function($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $table = new JoinedTable($dbAdapter);

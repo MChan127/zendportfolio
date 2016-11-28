@@ -1,0 +1,85 @@
+<div id="mobileMenu">
+	<ul>
+		<a href="/" style="background-color: #002E5C; border-right: 44vw solid rgba(255, 255, 255, 0.09); left: -100vw;"><li><i class="fa fa-home" aria-hidden="true"></i> Home</li></a>
+        <a href="/personal" style="background-color: #A20719; border-right: 37vw solid rgba(255, 255, 255, 0.09); right: -100vw;"><li><i class="fa fa-paint-brush" aria-hidden="true"></i> Personal</li></a>
+        <a href="/work" style="background-color: #014700; border-right: 30vw solid rgba(255, 255, 255, 0.09); left: -100vw;"><li><i class="fa fa-briefcase" aria-hidden="true"></i> Work</li></a>
+        <a href="/sym/mattchan_html_resume.pdf" style="background-color: #4F0038; border-right: 23vw solid rgba(255, 255, 255, 0.09); right: -100vw;"><li><i class="fa fa-book" aria-hidden="true"></i> My Resume</li></a>
+        <a href="https://github.com/MChan127" target="_blank" style="background-color: #742C02; border-right: 16vw solid rgba(255, 255, 255, 0.09); left: -100vw;"><li><i class="fa fa-github" aria-hidden="true"></i> My GitHub</li></a>
+	</ul>
+</div>
+
+<script type="text/javascript">
+$(function() {
+	var animating = false;
+	var menu_open = false;
+	var $mobileMenu = $('#mobileMenu');
+
+	var animateMenuItem = function($item, promise, open) {
+		if (open === undefined) {
+			open = true;
+		}
+		var odd_animation, even_animation;
+		if (open) {
+			odd_animation = {
+				'right': 0
+			};
+			even_animation = {
+				'left': 0
+			};
+		} else {
+			odd_animation = {
+				'right': "-100vw"
+			};
+			even_animation = {
+				'left': "-100vw"
+			};
+		}
+		setTimeout(function() {
+			if ($item.index() % 2 == 0) {
+				$item.animate(even_animation, 230, function() {
+					promise.resolve();
+				});
+			} else {
+				$item.animate(odd_animation, 230, function() {
+					promise.resolve();
+				});
+			}
+		}, $item.index() * 100);
+	};
+
+	$('#burgerMenuBtn').click(function() {
+		if (animating) {
+			return;
+		}
+		animating = true;
+
+		if (!menu_open) {
+			$('body').css('overflow', 'hidden');
+			$mobileMenu.find('a').css('display', 'block');
+			var animations = [];
+			$mobileMenu.find('a').each(function() {
+				var promise = $.Deferred();
+				animateMenuItem($(this), promise);
+				animations.push(promise);
+			});
+			$.when.apply($, animations).then(function() {
+				menu_open = true;
+				animating = false;
+			});
+		} else {
+			$('body').css('overflow', 'auto');
+			var animations = [];
+			$mobileMenu.find('a').each(function() {
+				var promise = $.Deferred();
+				animateMenuItem($(this), promise, false);
+				animations.push(promise);
+			});
+			$.when.apply($, animations).then(function() {
+				$mobileMenu.find('a').css('display', 'none');
+				menu_open = false;
+				animating = false;
+			});
+		}
+	});
+});
+</script>

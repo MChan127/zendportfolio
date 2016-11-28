@@ -1,6 +1,7 @@
 <?php
 
 namespace Portfolio\Model;
+use \Zend\Db\ResultSet\ResultSet;
 
 class PortfolioItem {
 	protected $_purifier;
@@ -20,7 +21,9 @@ class PortfolioItem {
 		12 => 'December'
 	);
 
-	public function __construct($data = null) {
+	public function __construct($adapter, $data = null) {
+		$this->adapter = $adapter;
+
 		$this->_purifier = new \HTMLPurifier();
 
 		if ($data) {
@@ -44,9 +47,18 @@ class PortfolioItem {
 				if ($key == 'description') {
 					$value = $this->_purifier->purify(nl2br($value));
 				}
+				if ($key == 'portfolio_type') {
+					$value = $this->getPortfolioTypeName($value);
+				}
 
 				$this->$key = $value;
 			}
+		}
+	}
+
+	public function exchangeArray($data) {
+		foreach ($data as $key => $value) {
+			$this->$key = (!empty($data[$key])) ? $value : null;
 		}
 	}
 
@@ -70,9 +82,19 @@ class PortfolioItem {
 		return $this->monthNames[$monthInt];
 	}
 
-	public function exchangeArray($data) {
-		foreach ($data as $key => $value) {
-			$this->$key = (!empty($data[$key])) ? $value : null;
+	// given the portfolio type id, return the name
+	public function getPortfolioTypeName($id) {
+		$query = "SELECT name FROM portfolio_type WHERE id = :id;";
+		$statement = $this->adapter->createStatement($query);
+		$statement->prepare($query);
+		$result = $statement->execute(array('id' => $id));
+
+		$resultSet = new ResultSet();
+		$resultSet = $resultSet->initialize($result)->toArray();
+		if (count($resultSet) > 0) {
+			return $resultSet[0]['name'];
+		} else {
+			return '';
 		}
 	}
 }

@@ -1,18 +1,41 @@
 <p class="backLink">
-	<a href="/">< Back to Home</a>
+	<a href="/">Home</a> > <?php 
+		if ($item->portfolio_type === "Personal Project") {
+			echo '<a href="/personal">Personal Projects</a>';
+		} else if ($item->portfolio_type === "Work History") {
+			echo '<a href="/work">Work History</a>';
+		}
+	?> > <?php echo $item->title; ?>
 </p>
 
 <div class="itemDesc">
 	<?php
-	$img_filename = ($item->img_filename == null) ? 'none.jpg' : $item->img_filename;
+		// if portfolio item doesn't have an image (filename), just render
+		// the blank image
+		$empty_img = false;
+		if ($item->img_filename === null) {
+			$img_filename = 'placeholder.png';
+			$empty_img = true;
+		} else {
+			$img_filename = $item->img_filename;
+		}
+
+		$img_filename = "/sym/images/" . $img_filename;
 	?>
+	<?php if (!$empty_img): ?>
 	<div class="crop">
-		<a href="/sym/images/<?php echo $img_filename; ?>"><img src="/sym/images/<?php echo $img_filename; ?>"></a>
+		<a href="<?php echo $img_filename; ?>"><img src="<?php echo $img_filename; ?>"></a>
 	</div>
+	<?php endif; ?>
 
 	<p style="font-family: Raleway, serif; font-size: 36px; font-weight: 900; letter-spacing: 3px;
-		border-bottom: 1px solid #fff; width: 600px;">
+		border-bottom: 1px solid #414141; width: 600px;">
 		<?php echo $item->title ?>
+
+		<span style="font-size: 18px; font-style: italic; font-weight: 400; letter-spacing: 0;
+			display: block; text-indent: 20px;">
+			<?php echo $item->portfolio_type; ?>
+		</span>
 	</p>
 
 	<p>
@@ -21,19 +44,19 @@
 		<span style="letter-spacing: 1px;">Last Updated:</span> <?php echo $item->updated ?><br>
 		<span style="letter-spacing: 1px;">Link:</span> <?php 
 			$project_link = $item->link;
-			if (filter_var($project_link, FILTER_VALIDATE_URL) !== false) {
+			/*if (filter_var($project_link, FILTER_VALIDATE_URL) !== false) {
 				echo '<a href="' . $project_link . '" target="_blank">' . $project_link . '</a>';
-			} else {
+			} else {*/
 				echo $project_link;
-			}
+			//}
 		?><br>
 		<span style="letter-spacing: 1px;">Source:</span> <?php 
 			$source_link = $item->source;
-			if (filter_var($source_link, FILTER_VALIDATE_URL) !== false) {
+			/*if (filter_var($source_link, FILTER_VALIDATE_URL) !== false) {
 				echo '<a href="' . $source_link . '" target="_blank">' . $source_link . '</a>';
-			} else {
+			} else {*/
 				echo $source_link;
-			}
+			//}
 		?>
 	</p>
 

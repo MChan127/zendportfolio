@@ -5,7 +5,7 @@
         <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 
         <meta charset="utf-8">
-        <?php echo $this->headTitle("Matthew Chan - Web Portfolio")?>
+        <?php echo $this->headTitle("")?>
 
         <?php echo $this->headMeta()
             ->appendName('viewport', 'width=device-width, initial-scale=1.0')
@@ -16,7 +16,8 @@
         <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
                         ->prependStylesheet($this->basePath('css/style.css'))
                         ->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'))
-                        ->prependStylesheet($this->basePath('css/bootstrap.min.css')) ?>
+                        ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
+                        ->prependStylesheet($this->basePath('font-awesome-4.7.0/css/font-awesome.min.css')) ?>
 
         <!-- Scripts -->
         <?php echo $this->headScript()
@@ -27,12 +28,12 @@
         ; ?>
     </head>
     <body>
+        <img src="img/tree_background.png" id="treeBg" />
         <header>
             <div id="title">
-                <span id="titleText">Matthew Chan</span><br>
-                <span style="display: block; position: relative; top: -12px; left: 20px;
-                    letter-spacing: 2px; font-weight: 600;">
-                    Web Developer / Software Engineer
+                <span id="titleText"><a href="/">Matthew Chan</a></span>
+                <span>
+                    <a href="/">Web Developer / Software Engineer</a>
                 </span>
             </div>
 
@@ -40,14 +41,26 @@
             <div id="nav">
                 <ul>
                     <a href="/"><li>Home</li></a>
+                    <a href="/personal"><li>Personal</li></a>
+                    <a href="/work"><li>Work</li></a>
                     <a href="/sym/mattchan_html_resume.pdf"><li>My Resume</li></a>
                     <a href="https://github.com/MChan127" target="_blank"><li>My GitHub</li></a>
                 </ul>
             </div>
+
+            <span id="burgerMenuBtn"><img src="img/burger_menu.png" /></span>
         </header>
 
         <div id="content">
             <?php echo $this->content; ?>
         </div>
+
+        <?php echo $this->partial('portfolio/index/mobile_menu.phtml'); ?>
+
+        <script>
+            //http://stackoverflow.com/a/18397475
+            document.documentElement.className += 
+            (("ontouchstart" in document.documentElement) ? ' touch' : ' no-touch');
+        </script>
     </body>
 </html>

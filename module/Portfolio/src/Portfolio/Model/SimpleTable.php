@@ -38,10 +38,7 @@ class SimpleTable extends AbstractTableGateway {
 		$this->objname = $objname;
 	}
 
-	// get all items that have $value underneath $columnname
-	// if insufficient arguments given, fetches all rows
-	// order is only used for pagination (at this time)
-	public function fetchAll($pagination, $order = null, $value = null, $columnname = null) {
+	public function fetchAll($order = null) {
 		// based on $order parameter, the SQL statement retrieves from the db
 		// with a sorted array of some kind
 		$sortRule = null;
@@ -67,40 +64,19 @@ class SimpleTable extends AbstractTableGateway {
 				break;
 		}
 
-		// if pagination is true, then use Zend paginator
-		// we have to create a db adapter object
-		if ($pagination) {
-			 // create a new Select object for the table we want to fetch from
-             $select = new Select();
-             $select->from($this->table)->order($sortRule);
+		 // create a new Select object for the table we want to fetch from
+         $select = new Select();
+         $select->from($this->table)->order($sortRule);
 
-             // set our object type (passed into constructor along with table name) 
-             // as the prototype for this result set
-             $resultSetPrototype = new ResultSet();
-             $resultSetPrototype->setArrayObjectPrototype(new $this->objname());
+         // set our object type (passed into constructor along with table name) 
+         // as the prototype for this result set
+         $resultSetPrototype = new ResultSet();
+         $resultSetPrototype->setArrayObjectPrototype(new $this->objname($this->adapter));
 
-             // create a new pagination adapter object
-             $paginatorAdapter = new DbSelect($select, $this->getAdapter(), $resultSetPrototype);
+         // create a new pagination adapter object
+         $paginatorAdapter = new DbSelect($select, $this->adapter, $resultSetPrototype);
 
-			return new Paginator($paginatorAdapter);
-		}
-
-		// else if not pagination
-		// return a regular un-paginated array of objects
-		$objSet = array();
-
-		if ($value === null || $columnname === null) {
-			$resultSet = $this->select();
-		} else {
-			$resultSet = $this->select(array($columnname => $value));
-		}
-
-		// loop through results and return each row as an object
-		foreach ($resultSet as $row) {
-			array_push($objSet, new $this->objname($row));
-		}
-
-		return $objSet;
+		return new Paginator($paginatorAdapter);
 	}
 
 	// get one item by an id
@@ -113,7 +89,7 @@ class SimpleTable extends AbstractTableGateway {
 			throw new Exception('Item does not exist in table.');
 		}
 
-		return new $this->objname($row);
+		return new $this->objname($this->adapter, $row);
 	}
 
 	// find an item with the url key
@@ -126,6 +102,6 @@ class SimpleTable extends AbstractTableGateway {
 			return false;
 		}
 
-		return new $this->objname($row);
+		return new $this->objname($this->adapter, $row);
 	}
 }
