@@ -262,6 +262,15 @@ header {
     top: 10px;
 }
 
+.portfolioItemTitle {
+    font-family: Raleway, serif; 
+    font-size: 36px; 
+    font-weight: 900; 
+    letter-spacing: 3px;
+    border-bottom: 1px solid #414141; 
+    width: 600px;
+}
+
 .crop {
     border: 1px solid #000;
     float: right;
@@ -429,10 +438,18 @@ header {
         width: 100%;
         max-width: 450px;
     }
+    .portfolioItemTitle {
+        width: 100%;
+    }
 }
 @media only screen and (max-width: 550px) {
     .crop {
         width: 100%;
+    }
+}
+@media only screen and (max-width: 480px) {
+    body {
+        background-image: none;
     }
 }
 /* smallest phone sizes */

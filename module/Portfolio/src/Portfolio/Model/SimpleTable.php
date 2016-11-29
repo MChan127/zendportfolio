@@ -45,7 +45,7 @@ class SimpleTable extends AbstractTableGateway {
 		// by default, if $order parameter null we get the ordinary list of rows
 		switch ($order) {
 			case null:
-				$sortRule = 'id ASC';
+				$sortRule = 'end DESC';
 				break;
 			case 'alpha_asc':
 				$sortRule = 'title ASC';
@@ -60,7 +60,7 @@ class SimpleTable extends AbstractTableGateway {
 				$sortRule = 'end DESC';
 				break;
 			default:
-				$sortRule = 'id ASC';
+				$sortRule = 'end DESC';
 				break;
 		}
 
