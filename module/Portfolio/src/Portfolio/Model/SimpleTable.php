@@ -54,10 +54,10 @@ class SimpleTable extends AbstractTableGateway {
 				$sortRule = 'title DESC';
 				break;
 			case 'date_asc':
-				$sortRule = 'start ASC';
+				$sortRule = 'end ASC';
 				break;
 			case 'date_desc':
-				$sortRule = 'start DESC';
+				$sortRule = 'end DESC';
 				break;
 			default:
 				$sortRule = 'id ASC';
