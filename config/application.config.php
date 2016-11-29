@@ -60,5 +60,24 @@ return array(
 
    // Initial configuration with which to seed the ServiceManager.
    // Should be compatible with Zend\ServiceManager\Config.
-   // 'service_manager' => array(),
+   'service_manager' => array(
+        'factories' => array(
+            'cache' => function() {
+                return \Zend\Cache\StorageFactory::factory(array(
+                    'adapter' => array(
+                        'name' => 'filesystem',
+                        'options' => array(
+                            'cache_dir' => 'data/cache'
+                        )
+                    ),
+                    'plugins' => array(
+                        'exception_handler' => array(
+                            'throw_exceptions' => false
+                        ),
+                        'Serializer'
+                    )
+                ));
+            },
+        ),
+    ),
 );

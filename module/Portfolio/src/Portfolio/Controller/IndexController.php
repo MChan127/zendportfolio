@@ -28,6 +28,14 @@ class IndexController extends AbstractActionController {
 	}
 
 	public function indexAction() {
+		/*$cache = $this->getServiceLocator()->get('cache');
+		if (!$cache->hasItem('test')) {
+			$cache->addItem('test', '123');
+		} else {
+			echo $cache->getItem('test');
+		}
+		die;*/
+
 		$table = $this->getPortfolioTable();
 	    
 	    // fetch a paginated array of portfolio items
@@ -127,7 +135,11 @@ class IndexController extends AbstractActionController {
 			$prevRoute = '/';
 		}
 
-		$id = $this->params()->fromRoute('id', 0);
+		$id = $this->params()->fromRoute('id', null);
+		if (!$id) {
+			$this->getResponse()->setStatusCode(404);
+			return;
+		}
 
 		$item_tag_table = $this->getItemTagTable();
 		$tag_table = $this->getTagTable();

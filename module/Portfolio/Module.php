@@ -14,10 +14,16 @@ use Portfolio\Model\JoinedTable;
 class Module implements InitProviderInterface
 {
     protected $serviceManager;
+    protected $routesToCache;
+
     // http://stackoverflow.com/a/34388698
     // get the service manager which at the time of the EVENT_LOAD_MODULES_POST event should contain
     // the database adapters we need
     public function init(ModuleManagerInterface $moduleManager) {
+        $this->routesToCache = array(
+            'index/index', 'index/view', 'index/tag', 'index/personal', 'index/work'
+        );
+
         $eventManager = $moduleManager->getEventManager();
         $eventManager->attach(ModuleEvent::EVENT_LOAD_MODULES_POST, [$this, 'onLoadModulesPost']);
     }
@@ -29,6 +35,8 @@ class Module implements InitProviderInterface
     {
         $eventManager        = $e->getApplication()->getEventManager();
         $eventManager->attach(MvcEvent::EVENT_ROUTE, array($this, 'seoRoute'), 0);
+        $eventManager->attach(MvcEvent::EVENT_ROUTE, array($this, 'loadPageCache'), -1000);
+        $eventManager->attach(MvcEvent::EVENT_FINISH, array($this, 'savePageCache'), -1000);
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
     }
@@ -43,6 +51,66 @@ class Module implements InitProviderInterface
         if ($item) {
             $routeMatch->setParam('action', 'view');
             $routeMatch->setParam('id', $item->id);
+        }
+    }
+    // full page caching
+    public function loadPageCache(MvcEvent $e) {
+        $routeMatch = $e->getRouteMatch();
+        $routeName = strtolower(str_replace("Portfolio\\Controller\\", '', $routeMatch->getParam('controller'))
+            . '/' . $routeMatch->getParam('action'));
+        if (!in_array($routeName, $this->routesToCache))
+            return;
+
+        $routeName = str_replace('/', '_', $routeName);
+        $this->getRouteParams($routeName, $routeMatch);
+
+        $cache = $this->serviceManager->get('cache');
+        if ($cache->hasItem('fpc-' . $routeName)) {
+            $response = $e->getResponse();
+            $content = $cache->getItem('fpc-' . $routeName);
+            if ($content !== null) {
+                $response->setContent($content);
+                return $response;
+            }
+        }
+    }
+    public function savePageCache(MvcEvent $e) {
+        $routeMatch = $e->getRouteMatch();
+        $routeName = strtolower(str_replace("Portfolio\\Controller\\", '', $routeMatch->getParam('controller'))
+            . '/' . $routeMatch->getParam('action'));
+        if (!in_array($routeName, $this->routesToCache))
+            return;
+
+        $routeName = str_replace('/', '_', $routeName);
+        $this->getRouteParams($routeName, $routeMatch);
+
+        $cache = $this->serviceManager->get('cache');
+        if ($cache->hasItem('fpc-' . $routeName))
+            return;
+
+        $response = $e->getResponse();
+        $content = $response->getContent();
+        $cache->setItem('fpc-' . $routeName, $content);
+    }
+    private function getRouteParams(&$routeName, $routeMatch) {
+        switch($routeName) {
+            case 'index_index':
+            case 'index_personal':
+            case 'index_work':
+                if (isset($_GET['page']) && ctype_digit((string)$_GET['page'])) {
+                    $routeName .= '_page' . $_GET['page'];
+                } else {
+                    $routeName .= '_page0';
+                }
+                if (isset($_GET['sortby']) && preg_match('/^[a-z_]+$/', $_GET['sortby']) !== false) {
+                    $routeName .= '_sortby_' . $_GET['sortby'];
+                }
+                break;
+            case 'index_tag':
+            case 'index_view':
+                $id = $routeMatch->getParam('id');
+                $routeName .= '_id' . $id;
+                break;
         }
     }
 
