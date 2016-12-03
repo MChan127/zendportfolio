@@ -160,4 +160,10 @@ class IndexController extends AbstractActionController {
 	    );
 	    return $view;
 	}
+
+	public function contactAction() {
+		$this->getServiceLocator()->get('ViewHelperManager')->get('HeadTitle')->set('Matthew Chan - Contact Me');
+		$view = new ViewModel();
+	    return $view;
+	}
 }
